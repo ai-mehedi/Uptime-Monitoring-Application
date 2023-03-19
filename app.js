@@ -1,27 +1,33 @@
 /*
-*   Title: Uptime Monitoring Application
-*   Description:A RESTful API to monitor up or down time of user define links
-*   Author: https://github.com/ai-mehedi
-*   date: 19-03-2023
-*/
+ * Title: Uptime Monitoring Application
+ * Description: A RESTFul API to monitor up or down time of user defined links
+ * Author: Aminul Islam
+ * Date: 11/03/2023
+ *
+ */
+// dependencies
+const http = require('http');
+const url = require('url');
+const { StringDecoder } = require('string_decoder');
+const { handleReqRes } = require('./helper/handleReqRes');
+// app object - module scaffolding
+const app = {};
 
-const https = require('https');
-const app={};
+// configuration
 app.config = {
-    posr:3000
+    port: 3000,
 };
 
+// create server
+app.createServer = () => {
+    const server = http.createServer(app.handleReqRes);
+    server.listen(app.config.port, () => {
+        console.log(`listening to port ${app.config.port}`);
+    });
+};
 
-app.createServer(function(req, res) {
-const server = http.createServer(handleReq);
-server.listen(app.config.port,()=>{
-    console.log(`server listening on ${app.config.port}`)
-});
+// handle Request Response
+app.handleReqRes = handleReqRes;
 
-});
-
-app.handleReq=(req,res)=>{
-    res.end("Hello, world!");
-}
-
+// start the server
 app.createServer();
